@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>How Did We Do? – Peak Energy</title>
-<!-- Open Graph for rich text/iMessage preview -->
 <meta property="og:title" content="How did we do? – Peak Energy, Inc.">
 <meta property="og:description" content="Share your experience. It only takes a minute.">
 <meta property="og:url" content="https://peakenergync.com/review">
@@ -23,6 +22,9 @@
     --muted: #7a8d9a;
     --border: #e2ddd6;
     --text: #1a2b3a;
+    --red-light: #fdf6f5;
+    --red-border: #f0d5d2;
+    --red-text: #6b3530;
   }
   body {
     background: var(--bg);
@@ -37,7 +39,7 @@
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 2.75rem 2.25rem 2.25rem;
+    padding: 2.5rem 2.25rem 2.25rem;
     max-width: 420px;
     width: 100%;
     text-align: center;
@@ -57,54 +59,77 @@
     height: 4px;
     background: linear-gradient(90deg, var(--teal), var(--gold));
   }
+
+  /* Header section */
   .eyebrow {
     font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--teal);
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
   }
-  h1 {
+  .thank-you-line {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.5rem, 5vw, 1.9rem);
+    font-size: clamp(1.4rem, 5vw, 1.75rem);
     color: var(--navy);
     line-height: 1.25;
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.5rem;
   }
-  h1 em { font-style: italic; color: var(--teal); }
-  .subtitle {
+  .thank-you-sub {
     color: var(--muted);
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 300;
     line-height: 1.65;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0 0 1.5rem;
+  }
+
+  /* Star prompt */
+  .star-prompt {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 1rem;
+  }
+
   /* Stars */
   .stars-row {
     display: flex;
     justify-content: center;
-    gap: 0.6rem;
+    gap: 0.5rem;
     margin-bottom: 0.5rem;
   }
   .star {
-    font-size: 2.4rem;
+    font-size: 2.6rem;
     cursor: pointer;
     color: #ddd;
-    transition: color 0.12s, transform 0.12s;
+    transition: color 0.1s, transform 0.1s, opacity 0.2s;
     user-select: none;
     line-height: 1;
+    position: relative;
   }
-  .star.hover  { color: var(--gold); transform: scale(1.18); }
+  .star.hover  { color: var(--gold); transform: scale(1.15); }
   .star.lit    { color: var(--gold); }
-  .star.locked { color: var(--gold); transform: scale(1.1); filter: drop-shadow(0 2px 6px rgba(232,160,32,0.5)); }
+  .star.locked-on { color: var(--gold); transform: scale(1.08); filter: drop-shadow(0 2px 6px rgba(232,160,32,0.5)); cursor: default; }
+  .star.blocked { opacity: 0.25; cursor: not-allowed; }
   .star-hint {
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     color: var(--muted);
     min-height: 1.2em;
     margin-bottom: 1.75rem;
     transition: opacity 0.2s;
+    font-style: italic;
   }
+
   /* Panels */
   .panel { display: none; animation: fadeIn 0.35s ease both; }
   .panel.active { display: block; }
@@ -112,6 +137,7 @@
     from { opacity: 0; transform: translateY(8px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+
   /* Happy panel */
   .happy-msg {
     background: var(--teal-light);
@@ -120,8 +146,14 @@
     padding: 1rem 1.25rem;
     font-size: 0.88rem;
     color: var(--navy-soft);
-    line-height: 1.6;
+    line-height: 1.65;
     margin-bottom: 1.25rem;
+  }
+  .happy-msg strong {
+    display: block;
+    font-size: 0.95rem;
+    color: var(--navy);
+    margin-bottom: 0.35rem;
   }
   .btn-google {
     display: flex;
@@ -132,35 +164,44 @@
     color: #fff;
     text-decoration: none;
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 1rem;
     letter-spacing: 0.02em;
-    padding: 0.9rem 1.5rem;
+    padding: 1rem 1.5rem;
     border-radius: 10px;
     transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-    box-shadow: 0 4px 16px rgba(14,140,158,0.3);
+    box-shadow: 0 4px 16px rgba(14,140,158,0.35);
     width: 100%;
+    border: none;
+    cursor: pointer;
   }
   .btn-google:hover {
     background: #0a7a8a;
-    transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(14,140,158,0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(14,140,158,0.45);
   }
   .btn-google svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .google-nudge {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.65rem;
+    font-style: italic;
+  }
+
   /* Sad panel */
   .sad-msg {
-    background: #fdf6f5;
-    border: 1px solid #f0d5d2;
+    background: var(--red-light);
+    border: 1px solid var(--red-border);
     border-radius: 10px;
     padding: 1rem 1.25rem;
     font-size: 0.88rem;
-    color: #6b3530;
-    line-height: 1.6;
+    color: var(--red-text);
+    line-height: 1.65;
     margin-bottom: 1.25rem;
   }
   .feedback-form { text-align: left; }
   .feedback-form label {
     display: block;
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -203,6 +244,7 @@
   }
   .btn-send:hover { background: var(--navy-soft); transform: translateY(-1px); }
   .btn-send:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
   /* Thank-you panel */
   .thankyou-icon { font-size: 2.8rem; margin-bottom: 0.75rem; }
   .thankyou-panel h2 {
@@ -216,6 +258,7 @@
     font-size: 0.9rem;
     line-height: 1.65;
   }
+
   .card-footer {
     margin-top: 2rem;
     padding-top: 1.25rem;
@@ -228,9 +271,16 @@
 </head>
 <body>
 <div class="card">
+
+  <!-- Header -->
   <p class="eyebrow">Peak Energy, Inc.</p>
-  <h1>How did we do<br><em>for you?</em></h1>
-  <p class="subtitle">Tap a star to rate your experience.</p>
+  <h1 class="thank-you-line">Thank you for choosing us.</h1>
+  <p class="thank-you-sub">Every job matters to us. A quick rating helps us keep our standards high and makes sure every customer gets the same quality experience.</p>
+
+  <div class="divider"></div>
+
+  <!-- Stars -->
+  <p class="star-prompt">How did we do for you?</p>
   <div class="stars-row" id="starsRow">
     <span class="star" data-v="1">★</span>
     <span class="star" data-v="2">★</span>
@@ -239,10 +289,12 @@
     <span class="star" data-v="5">★</span>
   </div>
   <p class="star-hint" id="starHint">&nbsp;</p>
-  <!-- 4–5 stars: send to Google -->
+
+  <!-- 4–5 stars: Google review -->
   <div class="panel" id="panelHappy">
     <div class="happy-msg">
-      Glad to hear it. A quick Google review helps other homeowners in the Triangle find us when they need real help.
+      <strong>We're glad to hear it.</strong>
+      One more thing — would you mind leaving us a quick Google review? It helps other homeowners in the Triangle find us when they need a trusted contractor.
     </div>
     <a class="btn-google" href="https://g.page/r/CWuEqJDHaN8OEBE/review" target="_blank" id="googleBtn">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -251,13 +303,15 @@
         <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#fff"/>
         <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#fff"/>
       </svg>
-      Leave a Google Review
+      Tap Here to Leave a Google Review
     </a>
+    <p class="google-nudge">Opens Google — takes about 30 seconds.</p>
   </div>
+
   <!-- 1–3 stars: private feedback form -->
   <div class="panel" id="panelSad">
     <div class="sad-msg">
-      We're sorry your experience fell short. Tell us what happened and we'll follow up directly.
+      We're sorry your experience fell short. Tell us what happened and we'll follow up with you directly — we want to make it right.
     </div>
     <form class="feedback-form" id="feedbackForm">
       <label for="fname">Your name</label>
@@ -269,74 +323,130 @@
       <button type="submit" class="btn-send" id="sendBtn">Send Feedback</button>
     </form>
   </div>
+
   <!-- Thank-you (both paths) -->
   <div class="panel" id="panelThanks">
     <div class="thankyou-icon" id="thanksIcon">🙏</div>
     <div class="thankyou-panel">
       <h2 id="thanksTitle">Thank you</h2>
-      <p id="thanksMsg">We received your feedback and will be in touch. We take every job seriously and appreciate you letting us know.</p>
+      <p id="thanksMsg">We appreciate you taking the time. Every piece of feedback helps us do better.</p>
     </div>
   </div>
+
   <p class="card-footer">Peak Energy, Inc. · Holly Springs, NC · peakenergync.com</p>
 </div>
+
 <script>
-  const hints = ['', 'We want to hear more.', 'We want to hear more.', 'Thanks for your honesty.', 'Great to hear.', 'That means a lot.'];
-  const stars = document.querySelectorAll('.star');
+  // ─── State ───────────────────────────────────────────────────────────────
+  let selected  = 0;      // currently selected star value
+  let minAllow  = 1;      // lowest star the user can now pick
+  let fullyLocked = false; // no more changes allowed at all
+
+  const hints = ['', 'We want to hear about it.', 'We want to hear about it.', 'Thanks for the honest feedback.', 'Great to hear.', 'That means a lot — thank you.'];
+  const stars = Array.from(document.querySelectorAll('.star'));
   const hintEl = document.getElementById('starHint');
-  let selected = 0;
-  let locked = false;
+
+  function renderStars() {
+    stars.forEach(s => {
+      const v = +s.dataset.v;
+      s.classList.remove('hover', 'lit', 'locked-on', 'blocked');
+      if (v < minAllow || (fullyLocked && v !== selected)) {
+        // star is blocked or de-emphasised
+        if (fullyLocked) {
+          s.classList.toggle('locked-on', v <= selected);
+        } else {
+          s.classList.add('blocked');
+        }
+      } else if (v <= selected) {
+        s.classList.add('locked-on');
+      }
+    });
+  }
+
   function showPanel(id) {
     ['panelHappy','panelSad','panelThanks'].forEach(pid =>
       document.getElementById(pid).classList.remove('active')
     );
     if (id) document.getElementById(id).classList.add('active');
   }
+
+  // ─── Hover ───────────────────────────────────────────────────────────────
   stars.forEach(star => {
     star.addEventListener('mouseenter', () => {
-      if (locked) return;
+      if (fullyLocked) return;
       const v = +star.dataset.v;
-      stars.forEach(s => s.classList.toggle('hover', +s.dataset.v <= v));
+      if (v < minAllow) return; // blocked star — ignore hover
+      stars.forEach(s => {
+        const sv = +s.dataset.v;
+        s.classList.toggle('hover', sv >= minAllow && sv <= v);
+      });
       hintEl.textContent = hints[v] || '\u00a0';
     });
+
     star.addEventListener('mouseleave', () => {
-      if (locked) return;
+      if (fullyLocked) return;
       stars.forEach(s => s.classList.remove('hover'));
       hintEl.textContent = '\u00a0';
     });
+
+    // ─── Click ───────────────────────────────────────────────────────────
     star.addEventListener('click', () => {
-      selected = +star.dataset.v;
-      locked = true;
-      stars.forEach(s => {
-        s.classList.remove('hover', 'lit');
-        s.classList.toggle('locked', +s.dataset.v <= selected);
-      });
-      hintEl.textContent = hints[selected];
-      setTimeout(() => {
-        showPanel(selected >= 4 ? 'panelHappy' : 'panelSad');
-      }, 250);
+      if (fullyLocked) return;
+      const v = +star.dataset.v;
+      if (v < minAllow) return; // blocked — ignore
+
+      selected = v;
+
+      if (v <= 3) {
+        // Lock hard — they go to the private form, no going back
+        fullyLocked = true;
+        minAllow = 1;
+        renderStars();
+        hintEl.textContent = hints[v];
+        setTimeout(() => showPanel('panelSad'), 250);
+
+      } else if (v === 4) {
+        // Can upgrade to 5, but can't drop to 1–3
+        minAllow = 4;
+        renderStars();
+        hintEl.textContent = hints[v];
+        showPanel('panelHappy');
+
+      } else { // v === 5
+        // Fully locked — best outcome
+        fullyLocked = true;
+        minAllow = 5;
+        renderStars();
+        hintEl.textContent = hints[v];
+        showPanel('panelHappy');
+      }
     });
   });
-  // Google button: show thanks after redirect
+
+  // ─── Google button — show thanks after redirect ───────────────────────
   document.getElementById('googleBtn').addEventListener('click', () => {
     setTimeout(() => {
       document.getElementById('thanksIcon').textContent = '⭐';
       document.getElementById('thanksTitle').textContent = 'Thank you';
-      document.getElementById('thanksMsg').textContent = 'Your review helps other homeowners find us. We really appreciate it.';
+      document.getElementById('thanksMsg').textContent = 'Your review means a lot to us and helps other homeowners in the Triangle find a contractor they can trust.';
       showPanel('panelThanks');
-    }, 600);
+    }, 700);
   });
-  // Feedback form submission
-  // To make this actually email you, sign up free at https://formspree.io
-  // Create a form pointing to service@peakenergync.com, then replace YOUR_FORM_ID below.
+
+  // ─── Feedback form submission ─────────────────────────────────────────
+  // Formspree: sign up free at formspree.io, create a form pointed at
+  // service@peakenergync.com, then replace YOUR_FORM_ID below.
   document.getElementById('feedbackForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = document.getElementById('sendBtn');
     btn.disabled = true;
     btn.textContent = 'Sending…';
+
     const name    = document.getElementById('fname').value;
     const contact = document.getElementById('fcontact').value;
     const message = document.getElementById('fmsg').value;
-    const FORMSPREE_ID = 'YOUR_FORM_ID'; // ← replace this
+    const FORMSPREE_ID = 'YOUR_FORM_ID'; // ← replace with your Formspree ID
+
     let sent = false;
     if (FORMSPREE_ID !== 'YOUR_FORM_ID') {
       try {
@@ -348,12 +458,14 @@
         if (res.ok) sent = true;
       } catch(err) {}
     }
-    // Fallback: open mailto if Formspree not yet set up
+
+    // Fallback: mailto if Formspree not yet set up
     if (!sent) {
       const subject = encodeURIComponent(`Peak Energy Feedback – ${selected} star(s)`);
       const body    = encodeURIComponent(`Name: ${name}\nContact: ${contact}\nRating: ${selected} star(s)\n\nFeedback:\n${message}`);
       window.location.href = `mailto:service@peakenergync.com?subject=${subject}&body=${body}`;
     }
+
     document.getElementById('thanksIcon').textContent = '🙏';
     document.getElementById('thanksTitle').textContent = 'Thank you';
     document.getElementById('thanksMsg').textContent = 'We received your message and will follow up with you directly.';
