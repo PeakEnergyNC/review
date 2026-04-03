@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -8,9 +8,15 @@
 <meta property="og:description" content="Share your experience. It only takes a minute.">
 <meta property="og:url" content="https://peakenergync.com/review">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://peakenergync.github.io/review/preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://peakenergync.github.io/review/preview.png">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   :root {
     --primary:       #003876;
     --primary-dark:  #002a58;
@@ -31,62 +37,317 @@
     --radius:        10px;
     --shadow:        0 8px 40px rgba(0,56,118,0.10), 0 2px 8px rgba(0,56,118,0.06);
   }
-  body { background: var(--bg); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: var(--font-body); padding: 1.5rem; color: var(--text); -webkit-font-smoothing: antialiased; }
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 2.5rem 2.25rem 2rem; max-width: 440px; width: 100%; text-align: center; box-shadow: var(--shadow); position: relative; overflow: hidden; animation: rise 0.55s cubic-bezier(0.22,1,0.36,1) both; }
-  @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
-  .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, var(--primary) 60%, var(--accent)); }
-  .logo-bar { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 1.25rem; }
-  .logo-bar svg { width: 28px; height: 28px; flex-shrink: 0; }
-  .logo-bar span { font-family: var(--font-heading); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--primary); }
-  .card-title { font-family: var(--font-heading); font-size: clamp(1.35rem, 5vw, 1.65rem); font-weight: 700; color: var(--primary); line-height: 1.2; margin-bottom: 0.6rem; }
-  .card-sub { color: var(--text-light); font-size: 0.9rem; line-height: 1.65; margin-bottom: 1.5rem; }
-  .divider { height: 1px; background: var(--border); margin: 0 0 1.5rem; }
-  .star-prompt { font-family: var(--font-heading); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--primary); margin-bottom: 1rem; }
-  .stars-row { display: flex; justify-content: center; gap: 0.4rem; margin-bottom: 0.5rem; }
-  .star { font-size: 2.6rem; cursor: pointer; color: #ddd; transition: color 0.1s, transform 0.1s, opacity 0.2s; user-select: none; line-height: 1; }
-  .star.hover { color: var(--accent); transform: scale(1.15); }
-  .star.lit { color: var(--accent); }
-  .star.locked-on { color: var(--accent); transform: scale(1.08); filter: drop-shadow(0 2px 6px rgba(225,150,47,0.45)); cursor: default; }
-  .star.blocked { opacity: 0.25; cursor: not-allowed; }
-  .star-hint { font-size: 0.82rem; color: var(--muted); min-height: 1.2em; margin-bottom: 1.75rem; font-style: italic; }
+
+  body {
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    padding: 1.5rem;
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Card ─────────────────────────────────── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 2.5rem 2.25rem 2rem;
+    max-width: 440px;
+    width: 100%;
+    text-align: center;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+    animation: rise 0.55s cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Blue top accent bar */
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--primary) 60%, var(--accent));
+  }
+
+  /* ── Header ───────────────────────────────── */
+  .logo-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .logo-bar svg {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+  .logo-bar span {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--primary);
+  }
+
+  .card-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.35rem, 5vw, 1.65rem);
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1.2;
+    margin-bottom: 0.6rem;
+  }
+
+  .card-sub {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    font-weight: 400;
+    line-height: 1.65;
+    margin-bottom: 1.5rem;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0 0 1.5rem;
+  }
+
+  /* ── Star prompt ──────────────────────────── */
+  .star-prompt {
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 1rem;
+  }
+
+  /* ── Stars ────────────────────────────────── */
+  .stars-row {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .star {
+    font-size: 2.6rem;
+    cursor: pointer;
+    color: #ddd;
+    transition: color 0.1s, transform 0.1s, opacity 0.2s;
+    user-select: none;
+    line-height: 1;
+  }
+  .star.hover    { color: var(--accent); transform: scale(1.15); }
+  .star.lit      { color: var(--accent); }
+  .star.locked-on {
+    color: var(--accent);
+    transform: scale(1.08);
+    filter: drop-shadow(0 2px 6px rgba(225,150,47,0.45));
+    cursor: default;
+  }
+  .star.blocked  { opacity: 0.25; cursor: not-allowed; }
+
+  .star-hint {
+    font-size: 0.82rem;
+    color: var(--muted);
+    min-height: 1.2em;
+    margin-bottom: 1.75rem;
+    transition: opacity 0.2s;
+    font-style: italic;
+  }
+
+  /* ── Panels ───────────────────────────────── */
   .panel { display: none; animation: fadeIn 0.3s ease both; }
   .panel.active { display: block; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-  .happy-msg { background: var(--success-bg); border: 1px solid var(--success-border); border-radius: var(--radius); padding: 1rem 1.25rem; font-size: 0.88rem; color: var(--text); line-height: 1.65; margin-bottom: 1.25rem; text-align: left; }
-  .happy-msg strong { display: block; font-family: var(--font-heading); font-size: 0.95rem; color: var(--primary); margin-bottom: 0.35rem; }
-  .btn-google { display: flex; align-items: center; justify-content: center; gap: 0.65rem; background: var(--accent); color: #1a1a1a; text-decoration: none; font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem; letter-spacing: 0.03em; padding: 1rem 1.5rem; border-radius: var(--radius); transition: background 0.2s, transform 0.15s, box-shadow 0.2s; box-shadow: 0 4px 16px rgba(225,150,47,0.35); width: 100%; border: none; cursor: pointer; }
-  .btn-google:hover { background: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(225,150,47,0.45); }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Happy panel (4–5 stars) ──────────────── */
+  .happy-msg {
+    background: var(--success-bg);
+    border: 1px solid var(--success-border);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    font-size: 0.88rem;
+    color: var(--text);
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+    text-align: left;
+  }
+  .happy-msg strong {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    color: var(--primary);
+    margin-bottom: 0.35rem;
+  }
+
+  .btn-google {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    background: var(--accent);
+    color: #1a1a1a;
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.03em;
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius);
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(225,150,47,0.35);
+    width: 100%;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-google:hover {
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(225,150,47,0.45);
+  }
   .btn-google svg { width: 18px; height: 18px; flex-shrink: 0; }
-  .google-nudge { font-size: 0.76rem; color: var(--muted); margin-top: 0.6rem; font-style: italic; }
-  .sad-msg { background: var(--accent-light); border: 1px solid var(--accent-border); border-radius: var(--radius); padding: 1rem 1.25rem; font-size: 0.88rem; color: var(--text); line-height: 1.65; margin-bottom: 1.25rem; text-align: left; }
+
+  .google-nudge {
+    font-size: 0.76rem;
+    color: var(--muted);
+    margin-top: 0.6rem;
+    font-style: italic;
+  }
+
+  /* ── Sad panel (1–3 stars) ────────────────── */
+  .sad-msg {
+    background: var(--accent-light);
+    border: 1px solid var(--accent-border);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    font-size: 0.88rem;
+    color: var(--text);
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+    text-align: left;
+  }
+
   .feedback-form { text-align: left; }
-  .feedback-form label { display: block; font-family: var(--font-heading); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.35rem; }
-  .feedback-form input, .feedback-form textarea { width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 0.65rem 0.85rem; font-family: var(--font-body); font-size: 0.9rem; color: var(--text); background: #f8fafc; margin-bottom: 1rem; transition: border-color 0.15s, box-shadow 0.15s; outline: none; resize: vertical; }
-  .feedback-form input:focus, .feedback-form textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,56,118,0.1); }
+
+  .feedback-form label {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.35rem;
+  }
+
+  .feedback-form input,
+  .feedback-form textarea {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.65rem 0.85rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--text);
+    background: #f8fafc;
+    margin-bottom: 1rem;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    outline: none;
+    resize: vertical;
+  }
+  .feedback-form input:focus,
+  .feedback-form textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0,56,118,0.1);
+  }
   .feedback-form textarea { min-height: 100px; }
-  .btn-send { width: 100%; background: var(--primary); color: #fff; border: none; border-radius: var(--radius); padding: 0.9rem; font-family: var(--font-heading); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.04em; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+
+  .btn-send {
+    width: 100%;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    padding: 0.9rem;
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
   .btn-send:hover { background: var(--primary-dark); transform: translateY(-1px); }
   .btn-send:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  /* ── Thank-you panel ──────────────────────── */
   .thankyou-icon { font-size: 2.6rem; margin-bottom: 0.75rem; }
-  .thankyou-panel h2 { font-family: var(--font-heading); font-size: 1.4rem; color: var(--primary); margin-bottom: 0.5rem; }
-  .thankyou-panel p { color: var(--text-light); font-size: 0.9rem; line-height: 1.65; }
-  .card-footer { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--border); font-size: 0.72rem; color: #b0bec5; letter-spacing: 0.04em; }
-  .card-footer a { color: #b0bec5; text-decoration: none; }
+  .thankyou-panel h2 {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+  }
+  .thankyou-panel p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  /* ── Footer ───────────────────────────────── */
+  .card-footer {
+    margin-top: 2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.72rem;
+    color: #b0bec5;
+    letter-spacing: 0.04em;
+  }
+  .card-footer a {
+    color: #b0bec5;
+    text-decoration: none;
+  }
   .card-footer a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
 <div class="card">
+
+  <!-- Logo bar -->
   <div class="logo-bar">
+    <!-- Peak Energy sun/bolt icon -->
     <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <circle cx="16" cy="16" r="15" fill="#003876"/>
       <polygon points="16,5 20,14 28,12 18,20 22,28 13,20 5,23 14,15 10,7" fill="#e1962f"/>
     </svg>
     <span>Peak Energy, Inc.</span>
   </div>
+
   <h1 class="card-title">Thank you for choosing us.</h1>
   <p class="card-sub">Every job matters to us. A quick rating helps us keep our standards high and makes sure every customer gets the same quality experience.</p>
+
   <div class="divider"></div>
+
+  <!-- Stars -->
   <p class="star-prompt">How did we do?</p>
   <div class="stars-row" id="starsRow">
     <span class="star" data-v="1">★</span>
@@ -96,6 +357,8 @@
     <span class="star" data-v="5">★</span>
   </div>
   <p class="star-hint" id="starHint">&nbsp;</p>
+
+  <!-- 4–5 stars: Google review -->
   <div class="panel" id="panelHappy">
     <div class="happy-msg">
       <strong>We're glad to hear it.</strong>
@@ -112,8 +375,12 @@
     </a>
     <p class="google-nudge">Opens Google — takes about 30 seconds.</p>
   </div>
+
+  <!-- 1–3 stars: private feedback form -->
   <div class="panel" id="panelSad">
-    <div class="sad-msg">We're sorry your experience fell short. Tell us what happened and we'll follow up with you directly — we want to make it right.</div>
+    <div class="sad-msg">
+      We're sorry your experience fell short. Tell us what happened and we'll follow up with you directly — we want to make it right.
+    </div>
     <form class="feedback-form" id="feedbackForm">
       <label for="fname">Your name</label>
       <input type="text" id="fname" placeholder="First name is fine" autocomplete="name">
@@ -124,6 +391,8 @@
       <button type="submit" class="btn-send" id="sendBtn">Send Feedback</button>
     </form>
   </div>
+
+  <!-- Thank-you (both paths) -->
   <div class="panel" id="panelThanks">
     <div class="thankyou-icon" id="thanksIcon">🙏</div>
     <div class="thankyou-panel">
@@ -131,22 +400,136 @@
       <p id="thanksMsg">We appreciate you taking the time. Every piece of feedback helps us do better.</p>
     </div>
   </div>
+
   <p class="card-footer">Peak Energy, Inc. · Holly Springs, NC · <a href="https://peakenergync.com" target="_blank">peakenergync.com</a></p>
 </div>
+
 <script>
-  let selected=0,minAllow=1,fullyLocked=false;
-  const hints=['','We want to hear about it.','We want to hear about it.','Thanks for the honest feedback.','Great to hear.','That means a lot — thank you.'];
-  const stars=Array.from(document.querySelectorAll('.star'));
-  const hintEl=document.getElementById('starHint');
-  function renderStars(){stars.forEach(s=>{const v=+s.dataset.v;s.classList.remove('hover','lit','locked-on','blocked');if(fullyLocked){s.classList.toggle('locked-on',v<=selected);}else if(v<minAllow){s.classList.add('blocked');}else if(v<=selected){s.classList.add('locked-on');}});}
-  function showPanel(id){['panelHappy','panelSad','panelThanks'].forEach(pid=>document.getElementById(pid).classList.remove('active'));if(id)document.getElementById(id).classList.add('active');}
-  stars.forEach(star=>{
-    star.addEventListener('mouseenter',()=>{if(fullyLocked)return;const v=+star.dataset.v;if(v<minAllow)return;stars.forEach(s=>{const sv=+s.dataset.v;s.classList.toggle('hover',sv>=minAllow&&sv<=v);});hintEl.textContent=hints[v]||' ';});
-    star.addEventListener('mouseleave',()=>{if(fullyLocked)return;stars.forEach(s=>s.classList.remove('hover'));hintEl.textContent=' ';});
-    star.addEventListener('click',()=>{if(fullyLocked)return;const v=+star.dataset.v;if(v<minAllow)return;selected=v;if(v<=3){fullyLocked=true;minAllow=1;renderStars();hintEl.textContent=hints[v];setTimeout(()=>showPanel('panelSad'),250);}else if(v===4){minAllow=4;renderStars();hintEl.textContent=hints[v];showPanel('panelHappy');}else{fullyLocked=true;minAllow=5;renderStars();hintEl.textContent=hints[v];showPanel('panelHappy');}});
+  // ─── State ───────────────────────────────────────────────────────────
+  let selected    = 0;
+  let minAllow    = 1;
+  let fullyLocked = false;
+
+  const hints = ['', 'We want to hear about it.', 'We want to hear about it.', 'Thanks for the honest feedback.', 'Great to hear.', 'That means a lot — thank you.'];
+  const stars = Array.from(document.querySelectorAll('.star'));
+  const hintEl = document.getElementById('starHint');
+
+  function renderStars() {
+    stars.forEach(s => {
+      const v = +s.dataset.v;
+      s.classList.remove('hover', 'lit', 'locked-on', 'blocked');
+      if (fullyLocked) {
+        s.classList.toggle('locked-on', v <= selected);
+      } else if (v < minAllow) {
+        s.classList.add('blocked');
+      } else if (v <= selected) {
+        s.classList.add('locked-on');
+      }
+    });
+  }
+
+  function showPanel(id) {
+    ['panelHappy','panelSad','panelThanks'].forEach(pid =>
+      document.getElementById(pid).classList.remove('active')
+    );
+    if (id) document.getElementById(id).classList.add('active');
+  }
+
+  // ─── Hover ───────────────────────────────────────────────────────────
+  stars.forEach(star => {
+    star.addEventListener('mouseenter', () => {
+      if (fullyLocked) return;
+      const v = +star.dataset.v;
+      if (v < minAllow) return;
+      stars.forEach(s => {
+        const sv = +s.dataset.v;
+        s.classList.toggle('hover', sv >= minAllow && sv <= v);
+      });
+      hintEl.textContent = hints[v] || '\u00a0';
+    });
+
+    star.addEventListener('mouseleave', () => {
+      if (fullyLocked) return;
+      stars.forEach(s => s.classList.remove('hover'));
+      hintEl.textContent = '\u00a0';
+    });
+
+    // ─── Click ───────────────────────────────────────────────────────
+    star.addEventListener('click', () => {
+      if (fullyLocked) return;
+      const v = +star.dataset.v;
+      if (v < minAllow) return;
+
+      selected = v;
+
+      if (v <= 3) {
+        fullyLocked = true;
+        minAllow = 1;
+        renderStars();
+        hintEl.textContent = hints[v];
+        setTimeout(() => showPanel('panelSad'), 250);
+
+      } else if (v === 4) {
+        minAllow = 4;
+        renderStars();
+        hintEl.textContent = hints[v];
+        showPanel('panelHappy');
+
+      } else {
+        fullyLocked = true;
+        minAllow = 5;
+        renderStars();
+        hintEl.textContent = hints[v];
+        showPanel('panelHappy');
+      }
+    });
   });
-  document.getElementById('googleBtn').addEventListener('click',()=>{setTimeout(()=>{document.getElementById('thanksIcon').textContent='⭐';document.getElementById('thanksTitle').textContent='Thank you';document.getElementById('thanksMsg').textContent='Your review means a lot to us and helps other homeowners in the Triangle find a contractor they can trust.';showPanel('panelThanks');},700);});
-  document.getElementById('feedbackForm').addEventListener('submit',async function(e){e.preventDefault();const btn=document.getElementById('sendBtn');btn.disabled=true;btn.textContent='Sending…';const name=document.getElementById('fname').value;const contact=document.getElementById('fcontact').value;const message=document.getElementById('fmsg').value;const FORMSPREE_ID='xlgowkdz';let sent=false;if(FORMSPREE_ID!=='YOUR_FORM_ID'){try{const res=await fetch('https://formspree.io/f/'+FORMSPREE_ID,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({name,contact,message,rating:selected+' star(s)'})});if(res.ok)sent=true;}catch(err){}}if(!sent){const subject=encodeURIComponent('Peak Energy Feedback – '+selected+' star(s)');const body=encodeURIComponent('Name: '+name+'\nContact: '+contact+'\nRating: '+selected+' star(s)\n\nFeedback:\n'+message);window.location.href='mailto:service@peakenergync.com?subject='+subject+'&body='+body;}document.getElementById('thanksIcon').textContent='🙏';document.getElementById('thanksTitle').textContent='Thank you';document.getElementById('thanksMsg').textContent='We received your message and will follow up with you directly.';showPanel('panelThanks');});
+
+  // ─── Google button — show thanks after redirect ────────────────────
+  document.getElementById('googleBtn').addEventListener('click', () => {
+    setTimeout(() => {
+      document.getElementById('thanksIcon').textContent = '⭐';
+      document.getElementById('thanksTitle').textContent = 'Thank you';
+      document.getElementById('thanksMsg').textContent = 'Your review means a lot to us and helps other homeowners in the Triangle find a contractor they can trust.';
+      showPanel('panelThanks');
+    }, 700);
+  });
+
+  // ─── Feedback form submission ─────────────────────────────────────
+  document.getElementById('feedbackForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('sendBtn');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    const name    = document.getElementById('fname').value;
+    const contact = document.getElementById('fcontact').value;
+    const message = document.getElementById('fmsg').value;
+    const FORMSPREE_ID = 'xlgowkdz';
+
+    let sent = false;
+    if (FORMSPREE_ID !== 'YOUR_FORM_ID') {
+      try {
+        const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ name, contact, message, rating: `${selected} star(s)` })
+        });
+        if (res.ok) sent = true;
+      } catch(err) {}
+    }
+
+    if (!sent) {
+      const subject = encodeURIComponent(`Peak Energy Feedback – ${selected} star(s)`);
+      const body    = encodeURIComponent(`Name: ${name}\nContact: ${contact}\nRating: ${selected} star(s)\n\nFeedback:\n${message}`);
+      window.location.href = `mailto:service@peakenergync.com?subject=${subject}&body=${body}`;
+    }
+
+    document.getElementById('thanksIcon').textContent = '🙏';
+    document.getElementById('thanksTitle').textContent = 'Thank you';
+    document.getElementById('thanksMsg').textContent = 'We received your message and will follow up with you directly.';
+    showPanel('panelThanks');
+  });
 </script>
 </body>
 </html>
